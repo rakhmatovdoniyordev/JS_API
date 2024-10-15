@@ -51,7 +51,7 @@ function createContent(data){
                             <p>Depth: ${data.dimensions.depth}</p>
                         </div>
                         <div class="product__brand">
-                            <h1>${data.brand}</h1>
+                            ${data.brand ? `<h1>${data.brand}</h1>` : ``}
                         </div>
                         <div class="product__price">
                             <p class="price">Price:${data.price} $ <span>Discount Percentage:${data.discountPercentage}$</span></p>

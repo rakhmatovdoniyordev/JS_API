@@ -2,7 +2,6 @@ const wrapper = document.querySelector(".products__wrapper");
 const loading = document.querySelector(".loading");
 const moreBtn = document.querySelector(".products__btn");
 const category = document.querySelector(".category__collection");
-const productBrand = document.querySelector(".product__brand")
 
 const BASE__URL = "https://dummyjson.com";
 let limitcount = 8;
