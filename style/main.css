@@ -144,7 +144,7 @@ img {
   overflow: hidden;
   transition: 0.5s ease-in-out;
 }
-.product__img img {
+.product__image {
   width: 100%;
   height: 100%;
   padding: 30px;
@@ -152,6 +152,7 @@ img {
   transition: 0.5s ease-in-out;
 }
 .product__brand {
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -169,7 +170,7 @@ img {
   align-items: flex-start;
   gap: 12px;
 }
-.product__text h3 {
+.product__title {
   font-size: 24px;
 }
 .product__desc {

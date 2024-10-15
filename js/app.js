@@ -2,6 +2,7 @@ const wrapper = document.querySelector(".products__wrapper");
 const loading = document.querySelector(".loading");
 const moreBtn = document.querySelector(".products__btn");
 const category = document.querySelector(".category__collection");
+const productBrand = document.querySelector(".product__brand")
 
 const BASE__URL = "https://dummyjson.com";
 let limitcount = 8;
@@ -25,14 +26,15 @@ function createProduct(data) {
     }
   data.products.forEach((product) => {
     const card = document.createElement("div");
+    card.dataset.id = product.id
     card.className = "product__card";
     card.innerHTML = `
         <div class="product__img">
-        <img src=${product.images[0]} alt="">
-        <p class="product__brand">${product.brand}</p>
+        <img src=${product.images[0]} alt="" class="product__image">
+        ${product.brand ? `<p class="product__brand">${product.brand}</p>` : ``}
     </div>
     <div class="product__text">
-        <h3>${product.title}</h3>
+        <h3 class="product__title">${product.title}</h3>
         <p class="product__desc">${product.description}</p>
         <div class="product__rating">
             <div class="product__stars">
@@ -59,13 +61,6 @@ function createProduct(data) {
 }
 
 
-moreBtn.addEventListener("click", ()=>{
-    offset++
-    getData("products", offset);
-})
-
-
-
 async function getCategory(endpoint){
     const response = await fetch(`${BASE__URL}/${endpoint}`)
     response
@@ -78,6 +73,7 @@ async function getCategory(endpoint){
 }
 getCategory("products/category-list")
 
+let categoryType = `products`
 function createCategory(data){
     data.forEach(item => {
         const li = document.createElement("li")
@@ -86,10 +82,26 @@ function createCategory(data){
         dataval.innerHTML = item
         dataval.setAttribute("value", `/category/${item}`)
         dataval.addEventListener("click", e => {
-            getData(`products${e.target.value}`, offset)
+            categoryType = `products` + e.target.value
+            offset = 1
+            getData(categoryType, offset)
             loading.style.display = "flex";
         })
         li.appendChild(dataval)
         category.appendChild(li)
     })
 }
+
+moreBtn.addEventListener("click", ()=>{
+    offset++
+    getData(categoryType, offset);
+})
+
+
+
+wrapper.addEventListener("click", (event)=>{
+    if(event.target.className === "product__image" || event.target.className === "product__title"){
+        let id = event.target.closest(".product__card").dataset.id
+        open(`../pages/product/product.html?q=${id}`, `_self`)
+    }
+})
